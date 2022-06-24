@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkvue_test"]=self["webpackChunkvue_test"]||[]).push([[557],{8557:function(e,t,l){l.r(t),l.d(t,{default:function(){return c}});var u=function(){var e=this,t=e.$createElement,l=e._self._c||t;return l("ul",[l("li",[e._v("消息编号："+e._s(e.id))]),l("li",[e._v("消息标题："+e._s(e.title))])])},n=[],s={name:"Detail",props:["id","title"]},i=s,r=l(1001),a=(0,r.Z)(i,u,n,!1,null,null,null),c=a.exports}}]);
+//# sourceMappingURL=557-legacy.f25aeeb0.js.map

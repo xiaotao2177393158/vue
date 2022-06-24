@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+    <!-- 
+        常用生命周期钩子：
+        mounted()：发送 ajax 请求 启动定时器 初始化数据 创建子组件 绑定自定义事件 订阅信息等
+        beforeDestroy()：销毁子组件 取消订阅信息 移除自定义事件 移除定时器
+
+        销毁后借助vue开发着工具看不到任何信息·
+        销毁后自定义事件失效 但原生DOM事件仍然可以触发
+        
+     -->
+    <div id="app">
+        <h2 :style="{opacity: n}">嘿嘿嘿嘿</h2>
+        <button @click="change">修改透明度</button>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                n: .4
+            },
+            beforeCreate() {
+                console.log('beforeCreate');
+            },
+            created() {
+                console.log('created');
+            },
+            beforeMount() {
+                console.log('beforeMount');
+            },
+            mounted() {
+                console.log('mounted');
+            },
+            beforeUpdate() {
+                console.log('beforeUpdate');
+            },
+            updated() {
+                console.log('updated');
+            },
+            beforeDestroy() {
+                console.log('beforeDestroy');
+            },
+            destroyed() {
+                console.log('destroyed');
+            },
+            methods: {
+                change() {
+                    this.n -= 0.1;
+                    if(this.n < 0) this.n = 1; 
+                    console.log('n: ' + this.n);
+                }      
+            }
+        }); 
+    </script>
+</body>
+</html>

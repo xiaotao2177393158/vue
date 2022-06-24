@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <!--
+    条件渲染：
+    1.v-if
+        写法：
+                (1).v-if="表达式"
+                (2).v-else-if="表达式"
+                (3).v-else="表达式"
+        适用于：切换频率较低的场景。
+        特点：不展示的DOM元素直接被移除。
+        注意：v-if可以和:v-else-if、v-else一起使用，但要求结构不能被“打断”。
+    2.v-show
+        写法：v-show="表达式"
+        适用于：切换频率较高的场景。
+        特点：不展示的DOM元素未被移除，仅仅是使用样式隐藏掉
+    3.备注：使用v-if的时，元素可能无法获取到，而使用v-show一定可以获取到。
+        -->
+    <div id="app">
+        <button v-on:click="mood=!mood">toggle</button><br/>
+        show: <div v-show="mood">{{mood}}</div> 
+        if: <div v-if="mood">{{mood}}</div> <br/>
+
+        <template v-if="mood">
+            <h3>1</h3>
+            <h3>2</h3>
+            <h3>3</h3>
+        </template>
+
+        模糊查询: <input placeholder="请输入姓名" type="text" v-model='name'/><br/>
+        <button @click="sortType = 0">升序</button>
+        <button @click="sortType = 1">降序</button>
+        <button @click="sortType = 2">原顺序</button>
+        <h3>遍历数组</h3>
+        <ul>
+            <li v-for="(item, index) in fliePerson" :key="item.id">
+                {{index}} - {{item.name}} - {{item.age}}
+                <input type="button" value="">
+            </li>
+        </ul>
+
+        <h3>遍历对象</h3>
+        <ul>
+            <li v-for="(value, key) in student" :key="key">
+                {{key}} - {{value}}
+            </li>
+        </ul>
+
+        <h3>遍历字符串</h3>
+        <ul>
+            <li v-for="(value, key) in hi" :key="key">
+                {{key}} - {{value}}
+            </li>
+        </ul>
+        
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+
+    </div>
+
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                mood: true,
+                name: '',
+                person: [
+                    {id:'1', name: 'xiao', age: 18},
+                    {id:'2', name: 'tao', age: 25},
+                    {id:'3', name: 'hui', age: 23},
+                    {id:'4', name: 'xui', age: 24},
+                    {id:'5', name: 'hao', age: 16}
+                ],
+                // fliePerson: [],
+                sortType: 2,
+                student: {
+                    id: '1',
+                    name: 'xiao',
+                    age: 18
+                },
+                hi: 'hello'
+            }, 
+            computed: {
+                fliePerson() {
+                    let arr = this.person.filter(item => item.name.includes(this.name))
+                    console.log(this.sortType);
+                    if(this.sortType == 0) {
+                        arr.sort((a, b) => a.age - b.age)
+                    } else if(this.sortType == 1) {
+                        arr.sort((a, b) => b.age - a.age)
+                    }
+                    return arr;
+                }
+            },
+            //#region 
+            // watch 实现
+            /* watch: {
+                name: {
+                    handler(newVal) {
+                        console.log(newVal)
+                        this.fliePerson = this.person.filter((item) => {
+                            return item.name.indexOf(newVal) !== -1
+                        })
+                    },
+                    immediate: true      
+                }
+            }, */
+            //#endregion
+        })
+    </script>
+</body>
+</html>

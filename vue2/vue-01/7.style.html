@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <title>Document</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background: #ccc;
+            margin: 10px;
+        }
+        .a {
+            border: 5px solid pink;
+            border-radius: 10vw;
+        }
+        .b {
+            border: 5px solid blue;
+            border-radius: 5vw;
+        }
+        .c {
+            border: 5px solid rgba(60, 255, 0, 0.582);
+            border-radius: 2vw;
+        }
+    </style>
+</head>
+<body>
+        <!--
+			绑定样式：
+					1. class样式
+								写法:class="xxx" xxx可以是字符串、对象、数组。
+										字符串写法适用于：类名不确定，要动态获取。
+										对象写法适用于：要绑定多个样式，个数不确定，名字也不确定。
+										数组写法适用于：要绑定多个样式，个数确定，名字也确定，但不确定用不用。
+					2. style样式
+							:style="{fontSize: xxx}"其中xxx是动态值。
+							:style="[a,b]"其中a、b是样式对象。
+	-->
+    <div id="app">
+        <div class="box" :class='mood' @click="changeStyle"></div> 
+        <div class="box" :class='arr'></div>
+    </div>
+
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                mood: 'a',
+                arr: ['a','b','c']
+            },
+            methods: {
+                changeStyle() {
+                    this.mood = this.mood === 'a' ? 'b' : 'a'
+                }
+            },
+        })
+    </script>
+</body>
+</html>

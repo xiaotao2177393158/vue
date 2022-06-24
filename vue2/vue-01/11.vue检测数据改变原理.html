@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+    <!--
+  2. 如何监测对象中的数据？
+    通过setter实现监视，且要在new Vue时就传入要监测的数据。
+        (1).对象中后追加的属性，Vue默认不做响应式处理
+        (2).如需给后添加的属性做响应式，请使用如下API：
+                    Vue.set(target，propertyName/index，value) 或
+                    vm.$set(target，propertyName/index，value)
+-->
+    <div id="app">
+        
+        <div>{{ name }}</div>
+        <div v-text="age">hihi</div>
+        <button @click="addSex">添加学生信息</button>
+        <h3>学生信息</h3>
+        <h2>姓名：{{student.name}}</h2>
+        <h2>年龄：{{student.age}}</h2>
+        <h2 v-if="student.sex">性别：{{ student.sex }}</h2>
+        <ul>
+            <li v-for="(item, index) in school" :key="index">
+                {{ item.name }}
+            </li>
+        </ul>
+        <!--  data  ==> _data  添加了 响应式的 get set 方法-->
+    </div>
+
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                name: 'xiao',
+                age: 18,
+                student: {
+                    name: 'tao',
+                    age: 20
+                },
+                school: [
+                    {id: 1, name: '北京大学'},
+                    {id: 2, name: '清华大学'},
+                    {id: 3, name: '中国人民大学'}
+                ]
+            },
+            methods: {
+                addSex() {
+                    this.$set(this.student, 'sex', '男')
+                }
+            }
+        })
+    </script>
+</body>
+</html>

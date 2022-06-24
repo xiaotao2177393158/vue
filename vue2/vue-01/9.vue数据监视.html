@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+        <!--
+			Vue监视数据的原理：
+				1. vue会监视data中所有层次的数据。
+				2. 如何监测对象中的数据？
+						通过setter实现监视，且要在new Vue时就传入要监测的数据。
+						(1).对象中后追加的属性，Vue默认不做响应式处理
+						(2).如需给后添加的属性做响应式，请使用如下API：
+										Vue.set(target，propertyName/index，value) 或
+									    vm.$set(target，propertyName/index，value)
+				3. 如何监测数组中的数据？
+									通过包裹数组更新元素的方法实现，本质就是做了两件事：
+										(1).调用原生对应的方法对数组进行更新。
+										(2).重新解析模板，进而更新页面。
+				4.在Vue修改数组中的某个元素一定要用如下方法：
+							1.使用这些API:push()、pop()、shift()、unshift()、splice()、sort()、reverse()
+							2.Vue.set() 或 vm.$set()
+				特别注意：Vue.set() 和 vm.$set() 不能给vm 或 vm的根数据对象 添加属性！！！
+			    注: 数据劫持可以理解成为vue对你写在data的数据会进行加工，让它们都变成响应式的
+		-->
+    <div id="app">
+        <button @click="addSex">添加学生性别</button><br>
+        <button @click="addScore">添加物理成绩</button><br>
+        <button @click="addHobby">添加爱好</button><br>
+        <button @click="delHobby">删除爱好</button><br>
+
+        <div>姓名：{{ student.name }}</div>
+        年龄：<span v-text="student.age">20</span>
+        <div v-if="student.sex">性别：{{ student.sex }}</div>
+        <h3>成绩</h3>
+        <ul>
+            <li v-for="(item, index) in student.scores" :key="index">
+                {{ item.name }} -- {{ item.score }}
+            </li>
+        </ul>
+        <h3>爱好</h3>
+        <ul>
+            <li v-for="(item, index) in student.hobby" :key="index">
+                {{ item }}
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                student: {
+                    name: 'xiao',
+                    age: 18,
+                    scores: [
+                        {'name': '语文', 'score': 98},
+                        {'name': '数学', 'score': 88},
+                        {'name': '英语', 'score': 78}
+                    ],
+                    hobby: ['吃饭', '睡觉', '打豆豆']
+                }
+            },
+            methods: {
+                addSex() {
+                    this.$set(this.student, 'sex', '男')
+                    // Vue.set(this.student, 'sex', '女')
+                },
+                addScore() {
+                    this.student.scores.push({'name': '物理', 'score': '50'})
+                },
+                addHobby() {
+                    this.student.hobby.push('打游戏')
+                },
+                delHobby() {
+                    this.student.hobby.pop()
+                }
+            }
+        })
+    </script>
+</body>
+</html>

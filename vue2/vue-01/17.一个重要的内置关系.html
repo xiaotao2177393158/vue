@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+    <!-- 
+        Vue.prototype === VueComponent.prototype.__proto__
+        让组件实例对象（vc） 可以访问到组件的原型对象的属性，方法
+     -->
+    <div id="app">
+
+    </div>
+    
+    <script>
+        // 定义一个构造函数
+        function Demo(){
+            this.name = '小涛';
+            this.address = '云南';
+        }
+
+        // 创建一个实例
+        let demo = new Demo();
+
+        console.log(Demo.prototype);  // 显示Demo的原型对象
+        console.log(demo.__proto__);  // 隐式demo的原型对象
+
+        // 通过显示原型属性操作原型对象 添加属性
+        Demo.prototype.say = function(){
+            console.log('hello');
+        }
+        
+        demo.say();
+    </script>
+</body>
+</html>
